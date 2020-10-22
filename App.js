@@ -10,34 +10,59 @@ import Tab1 from './src/screens/tabs/Tab1'
 import Tab2 from './src/screens/tabs/Tab2'
 import Tab3 from './src/screens/tabs/Tab3'
 
-import {
-  NavigationContainer,
-    DarkTheme
-} from '@react-navigation/native'
+import { NavigationContainer, DarkTheme } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { useColorScheme, Appearance, AppearanceProvider } from 'react-native-appearance'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 const MaterialBottomTabs = createMaterialBottomTabNavigator();
-const MaterialTopTabs = createMaterialTopTabNavigator();
-
-// const createTopTabs = (props) => {
-//   return <MaterialTopTabs.Navigator>
-//     <MaterialTopTabs.Screen name="Tab 1" component={Tab1} options={{ title: props.route.params.name }} />
-//     <MaterialTopTabs.Screen name="Tab 2" component={Tab2} options={{ title: "World" }} />
-//     <MaterialTopTabs.Screen name="Tab 3" component={Tab3} options={{ title: "Clima" }} />
-//   </MaterialTopTabs.Navigator>
-// }
+const sizeIcon = 22;
 
 const createBottomTabs = () => {
-  return <MaterialBottomTabs.Navigator>
-    <MaterialBottomTabs.Screen name="Home" component={Tab1} />
-    <MaterialBottomTabs.Screen name="Profile" component={Tab2} />
-    <MaterialBottomTabs.Screen name="Map" component={Tab3} />
+  return <MaterialBottomTabs.Navigator initialRouteName="Home"
+    activeColor="#FFF"
+    inactiveColor="#000">
+    <MaterialBottomTabs.Screen name="Home"
+      component={Tab1}
+      options={{
+        title: 'Teste',
+        tabBarLabel: 'Home',
+        tabBarIcon: ({ color }) => (
+          <Icon name="home" color={color} size={sizeIcon} />
+        )
+      }}
+    />
+    <MaterialBottomTabs.Screen name="Map"
+      component={Tab3}
+      options={{
+        tabBarLabel: 'Map',
+        tabBarIcon: ({ color }) => (
+          <Icon name="map-o" color={color} size={sizeIcon} />
+        )
+      }}
+    />
+    <MaterialBottomTabs.Screen name="Net"
+      component={Tab3}
+      options={{
+        tabBarLabel: 'Net',
+        tabBarIcon: ({ color }) => (
+          <Icon name="wifi" color={color} size={sizeIcon} />
+        )
+      }}
+    />
+    <MaterialBottomTabs.Screen name="Profile"
+      component={Tab2}
+      options={{
+        tabBarLabel: 'Profile',
+        tabBarIcon: ({ color }) => (
+          <Icon name="user-circle" color={color} size={sizeIcon} />
+        )
+      }}
+    />
   </MaterialBottomTabs.Navigator>
 }
 
@@ -49,8 +74,7 @@ const createHomeStack = () =>
     <Stack.Screen name="Detail"
       component={Detail}
       options={{ title: "Detail Screen" }} />
-    <Stack.Screen name="BottomTabs" children={createBottomTabs} />
-    {/* <Stack.Screen name="Top Tabs" children={createTopTabs} /> */}
+    <Stack.Screen name="BottomTabs" options={{ title: "Application" }} children={createBottomTabs} />
   </Stack.Navigator>
 
 const App = () => {
@@ -58,11 +82,11 @@ const App = () => {
   const MyTheme = {
     dark: true,
     colors: {
-      primary: 'black',
-      background: "#698FA1",
-      card: 'black',
+      primary: 'white',
+      background: '#a3becb',
+      card: '#355968',
       text: 'white',
-      border: 'green'
+      border: 'white'
     }
   }
 
@@ -90,7 +114,6 @@ const App = () => {
       </NavigationContainer>
     </AppearanceProvider>
   )
-
 }
 
 export default App;
