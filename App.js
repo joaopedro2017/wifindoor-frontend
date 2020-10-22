@@ -1,114 +1,103 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React, { Component } from 'react';
+import Feed from './src/feed'
+import Detail from './src/detail'
 
-import React from 'react';
+import Screen1 from './src/screens/drawer/screen1'
+import Screen2 from './src/screens/drawer/screen2'
+import Screen3 from './src/screens/drawer/screen3'
+
+import Tab1 from './src/screens/tabs/Tab1'
+import Tab2 from './src/screens/tabs/Tab2'
+import Tab3 from './src/screens/tabs/Tab3'
+
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
+  StatusBar
 } from 'react-native';
 
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme
+} from '@react-navigation/native'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createStackNavigator } from '@react-navigation/stack'
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useColorScheme, Appearance, AppearanceProvider } from 'react-native-appearance'
+import { styles } from './src/styles/styles';
+
+const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
+const MaterialBottomTabs = createMaterialBottomTabNavigator();
+const MaterialTopTabs = createMaterialTopTabNavigator();
+
+const createTopTabs = (props) => {
+  return <MaterialTopTabs.Navigator>
+    <MaterialTopTabs.Screen name="Tab 1" component={Tab1} options={{ title: props.route.params.name }} />
+    <MaterialTopTabs.Screen name="Tab 2" component={Tab2} options={{ title: "World" }} />
+    <MaterialTopTabs.Screen name="Tab 3" component={Tab3} options={{ title: "Clima" }} />
+  </MaterialTopTabs.Navigator>
+}
+
+const createBottomTabs = () => {
+  return <MaterialBottomTabs.Navigator>
+    <MaterialBottomTabs.Screen name="Home" component={Tab1} />
+    <MaterialBottomTabs.Screen name="Profile" component={Tab2} />
+    <MaterialBottomTabs.Screen name="Map" component={Tab3} />
+  </MaterialBottomTabs.Navigator>
+}
+
+const createHomeStack = () =>
+  <Stack.Navigator>
+    <Stack.Screen name="Feed"
+      component={Feed}
+      options={{ title: "My Feed" }} />
+    <Stack.Screen name="Detail"
+      component={Detail}
+      options={{ title: "Detail Screen" }} />
+    <Stack.Screen name="Bottom Tabs" children={createBottomTabs} />
+    <Stack.Screen name="Top Tabs" children={createTopTabs} />
+  </Stack.Navigator>
 
 const App = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
+  const colorScheme = useColorScheme();
+  const MyTheme = {
+    dark: false,
+    colors: {
+      primary: 'purple',
+      background: "#CCC",
+      card: 'black',
+      text: 'white',
+      border: 'green'
+    }
+  }
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+  const linking = {
+    prefixes: ['recipes://'],
+    config: {
+      screens: {
+        Feed: 'feed/:title',
+        Detail: 'detail/:food'
+      }
+    }
+  }
+
+  return (
+    <AppearanceProvider>
+      <NavigationContainer theme={colorScheme == 'dark' ? DarkTheme : MyTheme}
+        linking={linking}
+      >
+        <Drawer.Navigator>
+          <Drawer.Screen name="Home" children={createHomeStack} />
+          <Drawer.Screen name="Contacts" component={Screen1} />
+          <Drawer.Screen name="Favorites" component={Screen2} />
+          <Drawer.Screen name="Settings" component={Screen3} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </AppearanceProvider>
+  )
+
+}
 
 export default App;
