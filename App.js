@@ -1,5 +1,5 @@
 import React from 'react';
-import Feed from './src/screens/login'
+import Login from './src/screens/login'
 import Detail from './src/detail'
 
 import Screen1 from './src/screens/drawer/screen1'
@@ -25,13 +25,13 @@ const Stack = createStackNavigator();
 const MaterialBottomTabs = createMaterialBottomTabNavigator();
 const MaterialTopTabs = createMaterialTopTabNavigator();
 
-const createTopTabs = (props) => {
-  return <MaterialTopTabs.Navigator>
-    <MaterialTopTabs.Screen name="Tab 1" component={Tab1} options={{ title: props.route.params.name }} />
-    <MaterialTopTabs.Screen name="Tab 2" component={Tab2} options={{ title: "World" }} />
-    <MaterialTopTabs.Screen name="Tab 3" component={Tab3} options={{ title: "Clima" }} />
-  </MaterialTopTabs.Navigator>
-}
+// const createTopTabs = (props) => {
+//   return <MaterialTopTabs.Navigator>
+//     <MaterialTopTabs.Screen name="Tab 1" component={Tab1} options={{ title: props.route.params.name }} />
+//     <MaterialTopTabs.Screen name="Tab 2" component={Tab2} options={{ title: "World" }} />
+//     <MaterialTopTabs.Screen name="Tab 3" component={Tab3} options={{ title: "Clima" }} />
+//   </MaterialTopTabs.Navigator>
+// }
 
 const createBottomTabs = () => {
   return <MaterialBottomTabs.Navigator>
@@ -43,22 +43,22 @@ const createBottomTabs = () => {
 
 const createHomeStack = () =>
   <Stack.Navigator>
-    <Stack.Screen name="Feed"
-      component={Feed}
+    <Stack.Screen name="Login"
+      component={Login}
       options={{ title: "Wifindoor" }} />
     <Stack.Screen name="Detail"
       component={Detail}
       options={{ title: "Detail Screen" }} />
-    <Stack.Screen name="Bottom Tabs" children={createBottomTabs} />
-    <Stack.Screen name="Top Tabs" children={createTopTabs} />
+    <Stack.Screen name="BottomTabs" children={createBottomTabs} />
+    {/* <Stack.Screen name="Top Tabs" children={createTopTabs} /> */}
   </Stack.Navigator>
 
 const App = () => {
   const colorScheme = useColorScheme();
   const MyTheme = {
-    dark: false,
+    dark: true,
     colors: {
-      primary: 'purple',
+      primary: 'black',
       background: "#698FA1",
       card: 'black',
       text: 'white',
@@ -70,7 +70,7 @@ const App = () => {
     prefixes: ['recipes://'],
     config: {
       screens: {
-        Feed: 'feed/:title',
+        Login: 'login/:title',
         Detail: 'detail/:food'
       }
     }

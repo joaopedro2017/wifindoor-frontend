@@ -18,7 +18,7 @@ const Login = () => {
                 <Form type="Login" />
                 <View style={Styles.signupTextCont}>
                     <Text style={Styles.signupText}>Don't have an account yet? </Text>
-                    <TouchableOpacity onPress={() => { navigation.navigate('Detail', { screenName: "My Detail Screen" }) }} >
+                    <TouchableOpacity onPress={() => { navigation.navigate('BottomTabs', { screenName: "My Detail Screen" }) }} >
                         <Text style={Styles.signupButton}>Signup</Text>
                     </TouchableOpacity>
                 </View>

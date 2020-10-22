@@ -7,7 +7,7 @@ const Feed = () => {
 
     const route = useRoute();
     const navigation = useNavigation();
-    let detailResult = route.params;
+    let detailResult = route.params; 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Navigation Drawer</Text>

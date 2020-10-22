@@ -15,7 +15,7 @@ const Detail = () => {
 
     useFocusEffect(
         React.useCallback(() => {
-            fetch('https://restcountries.eu/rest/v2/capital/tallinn')
+            fetch('https://wifindoor.herokuapp.com/api/parking/')
                 .then(response => {
                     response.json().then((data) => {
                         console.log(data);
@@ -31,13 +31,13 @@ const Detail = () => {
                 title='View Botton Tabs'
                 onPress={() => { navigation.navigate('Bottom Tabs', { name: "param 1" }) }}
             />
-            <Button
+            {/* <Button
                 title='View Top Tabs'
                 onPress={() => { navigation.navigate('Top Tabs', { name: "param 2" }) }}
-            />
+            /> */}
             <Button
                 title='Pass Data Back'
-                onPress={() => { navigation.navigate('Feed', { data: "=I!" }) }}
+                onPress={() => { navigation.navigate('Login', { data: "Signup!" }) }}
             />
         </View>
     )

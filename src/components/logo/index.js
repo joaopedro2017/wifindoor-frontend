@@ -13,9 +13,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     textLogo: {
-        marginVertical: 15,
-        fontSize: 18,
-        color: 'rgba(255,255,255,0.7)'
+        marginVertical: 12,
+        fontSize: 30,
+        color: 'rgba(255,255,255,0.8)'
     }
 })
 
@@ -23,7 +23,11 @@ export default class Logo extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image style={{ width: 128, height: 128 }}
+                <Image style={
+                    {
+                        width: 128,
+                        height: 128
+                    }}
                     source={require('../../images/logo.png')} />
                 <Text style={styles.textLogo}>Wifindoor</Text>
             </View>
