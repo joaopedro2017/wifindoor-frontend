@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Feed from './src/feed'
+import React from 'react';
+import Feed from './src/screens/login'
 import Detail from './src/detail'
 
 import Screen1 from './src/screens/drawer/screen1'
@@ -11,21 +11,14 @@ import Tab2 from './src/screens/tabs/Tab2'
 import Tab3 from './src/screens/tabs/Tab3'
 
 import {
-  StatusBar
-} from 'react-native';
-
-import {
   NavigationContainer,
-  DefaultTheme,
-  DarkTheme
+    DarkTheme
 } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useColorScheme, Appearance, AppearanceProvider } from 'react-native-appearance'
-import { styles } from './src/styles/styles';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -52,7 +45,7 @@ const createHomeStack = () =>
   <Stack.Navigator>
     <Stack.Screen name="Feed"
       component={Feed}
-      options={{ title: "My Feed" }} />
+      options={{ title: "Wifindoor" }} />
     <Stack.Screen name="Detail"
       component={Detail}
       options={{ title: "Detail Screen" }} />
@@ -66,7 +59,7 @@ const App = () => {
     dark: false,
     colors: {
       primary: 'purple',
-      background: "#CCC",
+      background: "#698FA1",
       card: 'black',
       text: 'white',
       border: 'green'
