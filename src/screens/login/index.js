@@ -7,9 +7,8 @@ import Logo from '../../components/logo'
 
 
 const Login = () => {
-    const route = useRoute();
     const navigation = useNavigation();
-    let detailResult = route.params;
+
     return (
         <View style={Styles.container}>
             {/* <StatusBar backgroundColor="#1c313a" barStyle="light-content" />  */}

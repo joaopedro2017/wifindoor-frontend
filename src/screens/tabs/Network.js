@@ -1,6 +1,6 @@
 import WifiManager from 'react-native-wifi-reborn'
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, PermissionsAndroid } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { styles } from '../../styles/styles'
 
 const estilo = StyleSheet.create({
@@ -29,7 +29,7 @@ const estilo = StyleSheet.create({
     }
 })
 
-class Tab1 extends Component {
+class Network extends Component {
     state = {
         networks: [],
         text: '',
@@ -38,25 +38,7 @@ class Tab1 extends Component {
 
     componentDidMount() {
 
-        const granted = PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-            {
-                title: 'Location permission is required for WiFi connections',
-                message:
-                    'This app needs location permission as this is required  ' +
-                    'to scan for wifi networks.',
-                buttonNegative: 'DENY',
-                buttonPositive: 'ALLOW',
-            },
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            console.log('Feito!')
-        } else {
-            console.log('Nope!')
-        }
-
         this.setState({ networks: [] })
-
         WifiManager.loadWifiList().then(
             WifiEntry => {
                 this.setState({ networks: WifiEntry })
@@ -114,4 +96,4 @@ class Tab1 extends Component {
     }
 }
 
-export default Tab1;
+export default Network;

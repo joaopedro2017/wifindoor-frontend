@@ -1,23 +1,16 @@
 import React from 'react';
 import Login from './src/screens/login'
-import Detail from './src/detail'
-
-import Screen1 from './src/screens/drawer/screen1'
-import Screen2 from './src/screens/drawer/screen2'
-import Screen3 from './src/screens/drawer/screen3'
-
-import Tab1 from './src/screens/tabs/Tab1'
-import Tab2 from './src/screens/tabs/Tab2'
-import Tab3 from './src/screens/tabs/Tab3'
-
-import { NavigationContainer, DarkTheme } from '@react-navigation/native'
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import { createStackNavigator } from '@react-navigation/stack'
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
-import { useColorScheme, Appearance, AppearanceProvider } from 'react-native-appearance'
+import Home from './src/screens/tabs/Home'
+import Map from './src/screens/tabs/Map'
+import Network from './src/screens/tabs/Network'
+import Profile from './src/screens/tabs/Profile'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Drawer = createDrawerNavigator();
+import { NavigationContainer, DarkTheme } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+import { useColorScheme, AppearanceProvider } from 'react-native-appearance'
+
 const Stack = createStackNavigator();
 const MaterialBottomTabs = createMaterialBottomTabNavigator();
 const sizeIcon = 22;
@@ -27,7 +20,7 @@ const createBottomTabs = () => {
     activeColor="#FFF"
     inactiveColor="#000">
     <MaterialBottomTabs.Screen name="Home"
-      component={Tab1}
+      component={Home}
       options={{
         title: 'Teste',
         tabBarLabel: 'Home',
@@ -37,7 +30,7 @@ const createBottomTabs = () => {
       }}
     />
     <MaterialBottomTabs.Screen name="Map"
-      component={Tab3}
+      component={Map}
       options={{
         tabBarLabel: 'Map',
         tabBarIcon: ({ color }) => (
@@ -45,17 +38,17 @@ const createBottomTabs = () => {
         )
       }}
     />
-    <MaterialBottomTabs.Screen name="Net"
-      component={Tab3}
+    <MaterialBottomTabs.Screen name="Network"
+      component={Network}
       options={{
-        tabBarLabel: 'Net',
+        tabBarLabel: 'Network',
         tabBarIcon: ({ color }) => (
           <Icon name="wifi" color={color} size={sizeIcon} />
         )
       }}
     />
     <MaterialBottomTabs.Screen name="Profile"
-      component={Tab2}
+      component={Profile}
       options={{
         tabBarLabel: 'Profile',
         tabBarIcon: ({ color }) => (
@@ -66,17 +59,6 @@ const createBottomTabs = () => {
   </MaterialBottomTabs.Navigator>
 }
 
-const createHomeStack = () =>
-  <Stack.Navigator>
-    <Stack.Screen name="Login"
-      component={Login}
-      options={{ title: "Wifindoor" }} />
-    <Stack.Screen name="Detail"
-      component={Detail}
-      options={{ title: "Detail Screen" }} />
-    <Stack.Screen name="BottomTabs" options={{ title: "Application" }} children={createBottomTabs} />
-  </Stack.Navigator>
-
 const App = () => {
   const colorScheme = useColorScheme();
   const MyTheme = {
@@ -84,33 +66,19 @@ const App = () => {
     colors: {
       primary: 'white',
       background: '#a3becb',
-      card: '#355968',
+      card: '#172C35',
       text: 'white',
       border: 'white'
     }
   }
 
-  const linking = {
-    prefixes: ['recipes://'],
-    config: {
-      screens: {
-        Login: 'login/:title',
-        Detail: 'detail/:food'
-      }
-    }
-  }
-
   return (
     <AppearanceProvider>
-      <NavigationContainer theme={colorScheme == 'dark' ? DarkTheme : MyTheme}
-        linking={linking}
-      >
-        <Drawer.Navigator>
-          <Drawer.Screen name="Home" children={createHomeStack} />
-          <Drawer.Screen name="Contacts" component={Screen1} />
-          <Drawer.Screen name="Favorites" component={Screen2} />
-          <Drawer.Screen name="Settings" component={Screen3} />
-        </Drawer.Navigator>
+      <NavigationContainer theme={colorScheme == 'dark' ? DarkTheme : MyTheme}>
+        <Stack.Navigator>
+          <Stack.Screen name="Login" options={{ title: "Wifindoor" }} component={Login} />
+          <Stack.Screen name="BottomTabs" options={{ title: "Application" }} children={createBottomTabs} />
+        </Stack.Navigator>
       </NavigationContainer>
     </AppearanceProvider>
   )

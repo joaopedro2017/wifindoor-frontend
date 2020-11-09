@@ -5,20 +5,11 @@ import {
     TextInput,
     Text
 } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native'
-
+import { useNavigation } from '@react-navigation/native'
 import Styles from './styles'
 
-
 const Form = () => {
-    // const navigation = useNavigation();
-    // const route = useRoute();
-
-    const route = useRoute();
     const navigation = useNavigation();
-    let detailResult = route.params;
-
-
     return (
         <View>
             <TextInput style={Styles.inputBox}
@@ -35,7 +26,6 @@ const Form = () => {
             </TouchableOpacity>
         </View>
     )
-
 }
 
 export default Form;
