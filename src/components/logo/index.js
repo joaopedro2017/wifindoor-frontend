@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     textLogo: {
         marginVertical: 12,
         fontSize: 30,
-        color: '#355968'
+        color: '#FFF'
     }
 })
 

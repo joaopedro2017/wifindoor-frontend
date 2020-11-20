@@ -4,6 +4,7 @@ import Home from './src/screens/tabs/Home'
 import Map from './src/screens/tabs/Map'
 import Network from './src/screens/tabs/Network'
 import Profile from './src/screens/tabs/Profile'
+import Register from './src/screens/register'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { NavigationContainer, DarkTheme } from '@react-navigation/native'
@@ -18,7 +19,7 @@ const sizeIcon = 22;
 const createBottomTabs = () => {
   return <MaterialBottomTabs.Navigator initialRouteName="Home"
     activeColor="#FFF"
-    inactiveColor="#000">
+    inactiveColor="#036be2">
     <MaterialBottomTabs.Screen name="Home"
       component={Home}
       options={{
@@ -65,8 +66,8 @@ const App = () => {
     dark: true,
     colors: {
       primary: 'white',
-      background: '#a3becb',
-      card: '#172C35',
+      background: '#023774',
+      card: '#023774',
       text: 'white',
       border: 'white'
     }
@@ -76,8 +77,9 @@ const App = () => {
     <AppearanceProvider>
       <NavigationContainer theme={colorScheme == 'dark' ? DarkTheme : MyTheme}>
         <Stack.Navigator>
-          <Stack.Screen name="Login" options={{ title: "Wifindoor" }} component={Login} />
-          <Stack.Screen name="BottomTabs" options={{ title: "Application" }} children={createBottomTabs} />
+          <Stack.Screen name="Login" options={{ headerShown: false }} component={Login} />
+          <Stack.Screen name="Register" options={{ title: "Register" }} component={Register} />
+          <Stack.Screen name="BottomTabs" options={{ title: "Wifindoor" }} children={createBottomTabs} />
         </Stack.Navigator>
       </NavigationContainer>
     </AppearanceProvider>

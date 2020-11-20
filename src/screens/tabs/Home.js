@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, PermissionsAndroid } from 'react-native';
+import { Text, PermissionsAndroid, ScrollView } from 'react-native';
 import { styles } from '../../styles/styles';
 
 class Home extends Component {
@@ -15,17 +15,16 @@ class Home extends Component {
                 buttonNegative: 'DENY',
                 buttonPositive: 'ALLOW',
             },
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            console.log('Feito!')
-        } else {
-            console.log('Nope!')
-        }
+        )
     }
+
     render() {
-        return <View style={styles.center}>
-            <Text style={styles.title}>HOME</Text>
-        </View>
+        return (
+            <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
+                <Text style={styles.title}>HOME</Text>
+            </ScrollView>
+        )
+
     }
 }
 

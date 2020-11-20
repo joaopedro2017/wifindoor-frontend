@@ -15,11 +15,11 @@ const Form = () => {
             <TextInput style={Styles.inputBox}
                 underlineColorAndroid='rgba(0,0,0,0)'
                 placeholder='E-mail'
-                placeholderTextColor='#FFF' />
+                placeholderTextColor='#888' />
             <TextInput style={Styles.inputBox}
                 underlineColorAndroid='rgba(0,0,0,0)'
                 placeholder='Password'
-                placeholderTextColor='#FFF'
+                placeholderTextColor='#888'
                 secureTextEntry />
             <TouchableOpacity style={Styles.button} onPress={() => { navigation.navigate('BottomTabs') }}>
                 <Text style={Styles.buttonText}>Login</Text>

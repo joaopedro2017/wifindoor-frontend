@@ -1,39 +1,12 @@
 import WifiManager from 'react-native-wifi-reborn'
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
+import { Card, Icon } from 'react-native-elements'
 import { styles } from '../../styles/styles'
-
-const estilo = StyleSheet.create({
-    buttonText: {
-        fontSize: 16,
-        fontWeight: '500',
-        color: '#AAA',
-        textAlign: 'center'
-    },
-    button: {
-        width: 300,
-        backgroundColor: '#1c313a',
-        borderRadius: 25,
-        marginVertical: 10,
-        paddingVertical: 12
-    },
-    title: {
-        fontSize: 10,
-        marginBottom: 5,
-        color: "green"
-    },
-    signupButton: {
-        color: '#FFF',
-        fontSize: 16,
-        fontWeight: '500'
-    }
-})
 
 class Network extends Component {
     state = {
-        networks: [],
-        text: '',
-        level: ''
+        networks: []
     };
 
     componentDidMount() {
@@ -42,29 +15,8 @@ class Network extends Component {
         WifiManager.loadWifiList().then(
             WifiEntry => {
                 this.setState({ networks: WifiEntry })
-
-                let i = 1
-                this.state.networks.forEach(element => {
-                    console.log('Rede ', i++)
-                    console.log(element.BSSID)
-                    console.log(element.SSID)
-                    console.log(element.capabilities)
-                    console.log(element.frequency)
-                    console.log(element.level)
-                    console.log(element.timestamp)
-                    console.log('----------------------------------------------------------------------')
-                });
             }
         )
-
-        WifiManager.getCurrentWifiSSID().then(
-            ssid => {
-                console.log("Your current connected wifi SSID is " + ssid);
-            },
-            () => {
-                console.log("Cannot get current SSID!");
-            }
-        );
     }
 
     loadingNetwork(event) {
@@ -78,20 +30,34 @@ class Network extends Component {
         )
     }
 
+    distanciaRSSI(RSSI, frenq) {
+        return Math.pow(10, ((parseInt(RSSI) * Math.log10(parseInt(frenq)) - 32.44) / 10 * 2.9))
+    }
+
     render() {
         return (
-            <View style={styles.center}>
-
+            <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
                 {
                     this.state.networks.map((element, index) => (
-                        <Text key={index} style={estilo.title}>{element.SSID} - {element.BSSID} - {element.level}</Text>
+                        <Card key={index} width={'120%'} containerStyle={styles.card}>
+                            <Card.Title style={styles.cardTitle}>
+                                <Icon name='wifi' color="#006400" /> {element.SSID}
+                            </Card.Title>
+                            {/* <Card.Divider /> */}
+                            <Text style={styles.cardText}>
+                                RSSI: {element.level}, Frequência: {element.frequency}, Distancia: {this.distanciaRSSI(element.level, element.frequency)} m
+                            </Text>
+                        </Card>
                     ))
                 }
 
-                <TouchableOpacity style={estilo.button} onPress={(event) => this.loadingNetwork(event)} >
-                    <Text style={estilo.buttonText}>Loading</Text>
-                </TouchableOpacity>
-            </View>
+                <View style={styles.center}>
+                    <TouchableOpacity style={styles.button} onPress={(event) => this.loadingNetwork(event)} >
+                        <Text style={styles.buttonText}>Loading</Text>
+                    </TouchableOpacity>
+                </View>
+
+            </ScrollView>
         )
     }
 }
